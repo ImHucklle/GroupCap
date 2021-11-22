@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eCommerceStarterCode.Data;
 
 namespace eCommerceStarterCode.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211122174153_CreatedShoppingCartTable")]
+    partial class CreatedShoppingCartTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,15 +50,15 @@ namespace eCommerceStarterCode.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "dfbf4147-2b9d-46fb-aefc-b2cb70747a5f",
-                            ConcurrencyStamp = "e163f234-efc6-415b-8268-f8a2e4b41ef5",
+                            Id = "cbb21834-695e-4ac4-9a85-72cb09ffc27c",
+                            ConcurrencyStamp = "8e5ea524-45df-4189-87bc-f7e69b043d87",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "7cfbb346-9de6-4f8c-8fa5-f05c94cbcd0e",
-                            ConcurrencyStamp = "007513bd-1919-46a2-8e64-b1a337ba992d",
+                            Id = "4e187c0f-e2b6-49c7-80a3-e20244f80c07",
+                            ConcurrencyStamp = "72f40fd2-a949-4c25-afa6-d4c155daadf0",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -316,24 +318,6 @@ namespace eCommerceStarterCode.Migrations
                     b.HasKey("RoleId");
 
                     b.ToTable("UserRole");
-                });
-
-            modelBuilder.Entity("eCommerceStarterCode.Models.Warehouse", b =>
-                {
-                    b.Property<int>("WarehouseId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("BookId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("WarehouseId");
-
-                    b.ToTable("Warehouse");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

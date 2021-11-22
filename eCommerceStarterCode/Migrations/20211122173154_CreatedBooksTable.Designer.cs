@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eCommerceStarterCode.Data;
 
 namespace eCommerceStarterCode.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211122173154_CreatedBooksTable")]
+    partial class CreatedBooksTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,15 +50,15 @@ namespace eCommerceStarterCode.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "dfbf4147-2b9d-46fb-aefc-b2cb70747a5f",
-                            ConcurrencyStamp = "e163f234-efc6-415b-8268-f8a2e4b41ef5",
+                            Id = "8865ce43-5400-4ed4-b919-1e3ebf334e07",
+                            ConcurrencyStamp = "e33bb872-b0b7-48bd-96d3-5d01474b16a8",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "7cfbb346-9de6-4f8c-8fa5-f05c94cbcd0e",
-                            ConcurrencyStamp = "007513bd-1919-46a2-8e64-b1a337ba992d",
+                            Id = "5dc77660-d121-478a-99dd-95369b0fb94a",
+                            ConcurrencyStamp = "de26f79b-aedd-4006-bf7a-e269eb2b8e72",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -211,24 +213,6 @@ namespace eCommerceStarterCode.Migrations
                     b.ToTable("Role");
                 });
 
-            modelBuilder.Entity("eCommerceStarterCode.Models.ShoppingCart", b =>
-                {
-                    b.Property<int>("ShoppingCartId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ShoppingCartId");
-
-                    b.ToTable("ShoppingCart");
-                });
-
             modelBuilder.Entity("eCommerceStarterCode.Models.User", b =>
                 {
                     b.Property<string>("Id")
@@ -316,24 +300,6 @@ namespace eCommerceStarterCode.Migrations
                     b.HasKey("RoleId");
 
                     b.ToTable("UserRole");
-                });
-
-            modelBuilder.Entity("eCommerceStarterCode.Models.Warehouse", b =>
-                {
-                    b.Property<int>("WarehouseId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("BookId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("WarehouseId");
-
-                    b.ToTable("Warehouse");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
