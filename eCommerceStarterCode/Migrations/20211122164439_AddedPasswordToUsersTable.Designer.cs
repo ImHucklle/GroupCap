@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eCommerceStarterCode.Data;
 
 namespace eCommerceStarterCode.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211122164439_AddedPasswordToUsersTable")]
+    partial class AddedPasswordToUsersTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,15 +50,15 @@ namespace eCommerceStarterCode.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "206ed8df-d19e-4198-adbe-30a202454aaa",
-                            ConcurrencyStamp = "dc311f36-5085-4827-9963-a02278b0fb39",
+                            Id = "5000bff7-e789-4f9e-bb48-8a05d10453f6",
+                            ConcurrencyStamp = "1c821e3c-0e7e-4f23-99c8-999ebb67b9df",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "a1db92f4-c5f9-4033-b645-ee7b419c0bea",
-                            ConcurrencyStamp = "4cf34b43-ea91-4d77-91a6-8bd5710e0aad",
+                            Id = "19c82eb8-cf53-4c2b-a51b-0b5e30a8ecc0",
+                            ConcurrencyStamp = "a4860a4e-b03c-44cb-9586-19fc4b3796f3",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -241,18 +243,6 @@ namespace eCommerceStarterCode.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("eCommerceStarterCode.Models.UserRole", b =>
-                {
-                    b.Property<int>("RoleId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.HasKey("RoleId");
-
-                    b.ToTable("UserRole");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

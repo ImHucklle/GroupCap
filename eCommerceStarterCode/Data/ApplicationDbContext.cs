@@ -7,6 +7,7 @@ namespace eCommerceStarterCode.Data
 {
     public class ApplicationDbContext : IdentityDbContext<User>
     {
+        public DbSet<UserRole> UserRole { get; set; }
         public ApplicationDbContext(DbContextOptions options)
             :base(options)
         {

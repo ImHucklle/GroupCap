@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eCommerceStarterCode.Data;
 
 namespace eCommerceStarterCode.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211122163924_AddedRegistrationDataToUsersTable")]
+    partial class AddedRegistrationDataToUsersTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,15 +50,15 @@ namespace eCommerceStarterCode.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "206ed8df-d19e-4198-adbe-30a202454aaa",
-                            ConcurrencyStamp = "dc311f36-5085-4827-9963-a02278b0fb39",
+                            Id = "09a6c257-4498-488f-95b3-2d38a41704b9",
+                            ConcurrencyStamp = "41cdc524-d776-4b76-997e-4cc6f67cec12",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "a1db92f4-c5f9-4033-b645-ee7b419c0bea",
-                            ConcurrencyStamp = "4cf34b43-ea91-4d77-91a6-8bd5710e0aad",
+                            Id = "8dcc969d-93c4-4cfd-91f9-0190bbce47ae",
+                            ConcurrencyStamp = "443a70ff-3094-4227-ad63-ea027971bd19",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -205,9 +207,6 @@ namespace eCommerceStarterCode.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
@@ -241,18 +240,6 @@ namespace eCommerceStarterCode.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("eCommerceStarterCode.Models.UserRole", b =>
-                {
-                    b.Property<int>("RoleId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.HasKey("RoleId");
-
-                    b.ToTable("UserRole");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
