@@ -48,15 +48,15 @@ namespace eCommerceStarterCode.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "dfbf4147-2b9d-46fb-aefc-b2cb70747a5f",
-                            ConcurrencyStamp = "e163f234-efc6-415b-8268-f8a2e4b41ef5",
+                            Id = "c073f42c-79e8-41a6-a5d7-0ed41ae7aca0",
+                            ConcurrencyStamp = "df8961da-91f7-4729-a4aa-312b6fcd7c8f",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "7cfbb346-9de6-4f8c-8fa5-f05c94cbcd0e",
-                            ConcurrencyStamp = "007513bd-1919-46a2-8e64-b1a337ba992d",
+                            Id = "a85197de-2346-492e-861e-08b0370b485f",
+                            ConcurrencyStamp = "27e54b6b-7578-4229-8a3e-7a5a5651df3b",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -196,35 +196,20 @@ namespace eCommerceStarterCode.Migrations
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("eCommerceStarterCode.Models.Role", b =>
-                {
-                    b.Property<int>("RoleId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("RoleName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("RoleId");
-
-                    b.ToTable("Role");
-                });
-
             modelBuilder.Entity("eCommerceStarterCode.Models.ShoppingCart", b =>
                 {
-                    b.Property<int>("ShoppingCartId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.HasKey("UserId", "BookId");
 
-                    b.HasKey("ShoppingCartId");
+                    b.HasIndex("BookId");
 
                     b.ToTable("ShoppingCart");
                 });
@@ -306,36 +291,6 @@ namespace eCommerceStarterCode.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("eCommerceStarterCode.Models.UserRole", b =>
-                {
-                    b.Property<int>("RoleId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.HasKey("RoleId");
-
-                    b.ToTable("UserRole");
-                });
-
-            modelBuilder.Entity("eCommerceStarterCode.Models.Warehouse", b =>
-                {
-                    b.Property<int>("WarehouseId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("BookId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("WarehouseId");
-
-                    b.ToTable("Warehouse");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -385,6 +340,25 @@ namespace eCommerceStarterCode.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("eCommerceStarterCode.Models.ShoppingCart", b =>
+                {
+                    b.HasOne("eCommerceStarterCode.Models.Books", "Books")
+                        .WithMany()
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("eCommerceStarterCode.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Books");
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }
