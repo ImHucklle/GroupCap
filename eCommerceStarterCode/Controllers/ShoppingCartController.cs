@@ -1,4 +1,5 @@
 ﻿using eCommerceStarterCode.Data;
+using eCommerceStarterCode.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,20 +19,64 @@ namespace eCommerceStarterCode.Controllers
             _context = context;
         }
 
-        [HttpGet, Authorize]
-        public IActionResult GetShoppingCartForUser()
+                //[HttpGet, Authorize]
+                //public IActionResult GetShoppingCartForUser()
+                //{
+                //    var userID = User.FindFirstValue("id");
+                //    var user = _context.Users.Find(userID);
+                //    if (user == null)
+                //    {
+                //        return NotFound("User Not Found");
+                //    }
+
+                //    var shoppingCart = _context.ShoppingCart
+                //        .Where(sc => sc.UserId == userID)
+                //        .ToList();
+                //    return Ok(shoppingCart);
+                //}
+
+        [HttpPost, Authorize]
+        public IActionResult AddBookToShoppingCart()
         {
-            var userID = User.FindFirstValue("id");
-            var user = _context.Users.Find(userID);
+            var userId = User.FindFirstValue("id");
+            var user = _context.Users.Find(userId);
             if (user == null)
             {
-                return NotFound("User Not Found");
+                return NotFound();
             }
 
-            var shoppingCart = _context.ShoppingCart
-                .Where(sc => sc.UserId == userID)
-                .ToList();
-            return Ok(shoppingCart);
+            var bookId = _context.Books.Where(b => b.Title == "book").Select(b => b.BookId).SingleOrDefault();
+
+            ShoppingCart newProduct = new ShoppingCart()
+            {
+                UserId = userId,
+                BookId = bookId,
+                Quantity = 1,
+            };
+
+            _context.ShoppingCart.Add(newProduct);
+            _context.SaveChanges();
+            return StatusCode(201);
+
+        }
+
+        [HttpPut]
+        public IActionResult EditShoppingCart([FromBody] ShoppingCart shoppingCartToChange) 
+        {
+            _context.ShoppingCart.Update(shoppingCartToChange);
+      
+            _context.SaveChanges();
+            return StatusCode(201);
+        }
+
+        [HttpDelete, Authorize]
+        public IActionResult RemoveBookFromShoppingCart()
+        {
+            var BookToBeRemoved = "bookId";
+            var BookDelete = _context.ShoppingCart.Where(sc => sc.Books.Title == BookToBeRemoved).SingleOrDefault();
+            _context.ShoppingCart.Remove(BookDelete);
+            _context.SaveChanges();
+            return Ok();
         }
     }
 }
