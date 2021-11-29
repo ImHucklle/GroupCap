@@ -31,5 +31,12 @@ namespace eCommerceStarterCode.Controllers
             }
             return Ok(user);
         }
+        //[HttpPost("user"), Authorize]
+
+        //public IActionResult PostUser()
+        //{
+        //    string jsonData = Request.Form[0]; // The data from the POST
+        //    return Ok();
+        //}
     }
 }

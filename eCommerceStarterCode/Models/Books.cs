@@ -16,7 +16,9 @@ namespace eCommerceStarterCode.Models
         public string Description { get; set; }
 
         public int Price { get; set; }
-
-
+        public object UserId { get; internal set; }
+        public object Genres { get; internal set; }
+        public object Name { get; internal set; }
+        public int Id { get; internal set; }
     }
 }

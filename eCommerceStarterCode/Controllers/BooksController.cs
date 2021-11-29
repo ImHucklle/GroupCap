@@ -1,8 +1,11 @@
 ﻿using eCommerceStarterCode.Data;
+using eCommerceStarterCode.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Security.Claims;
 
 namespace eCommerceStarterCode.Controllers
 {
@@ -17,11 +20,11 @@ namespace eCommerceStarterCode.Controllers
         {
             _context = context;
         }
-        // GET: api/<ProductController>
+        //GET: api/<ProductController>
         [HttpGet]
         public IActionResult GetAllProducts()
         {
-            var products = _context.Products;
+            var products = _context.Books;
             return Ok(products);
         }
 
@@ -29,7 +32,7 @@ namespace eCommerceStarterCode.Controllers
         [HttpGet("{Id}")]
         public IActionResult GetSingleProduct(int id)
         {
-            var singleProduct = _context.Products.Where(p => p.Id == id);
+            var singleProduct = _context.Books.Where(p => p.Id == id);
             return Ok(singleProduct);
         }
 
@@ -38,24 +41,26 @@ namespace eCommerceStarterCode.Controllers
         public IActionResult GetUserProductsForSale(string id)
         {
             var userId = User.FindFirstValue("id");
-            var usersProductsForSale = _context.Products.Include(p => p.UserId).Where(p => p.UserId == userId);
+#pragma warning disable CS0252 // Possible unintended reference comparison; left hand side needs cast
+            var usersProductsForSale = _context.Books.Include(p => p.UserId).Where(p => p.UserId == userId);
+#pragma warning restore CS0252 // Possible unintended reference comparison; left hand side needs cast
             return Ok(usersProductsForSale);
         }
 
-        // GET api/searchresults/searchterm
-        [HttpGet("searchresults{searchTerm}")]
-        public IActionResult GetSearchResults(string searchTerm)
-        {
-            // get all products with search term in name
-            var products = _context.Products.Include(p => p.Genres).ToList().Where(p => p.Name.ToLower().Contains(searchTerm.ToLower()));
-            return Ok(products);
-        }
+        //// GET api/searchresults/searchterm
+        //[HttpGet("searchresults{searchTerm}")]
+        //public IActionResult GetSearchResults(string searchTerm)
+        //{
+        //    // get all products with search term in name
+        //    var products = _context.Books.Include(b => b.Genre).ToList().Where(b => b.Name.ToLower().Contains(searchTerm.ToLower()));
+        //    return Ok(products);
+        //}
 
         // POST api/<ProductController>
-        [HttpPost]
-        public IActionResult PostNewProduct([FromBody] Product value)
+        [HttpPost("create")]
+        public IActionResult PostNewProduct([FromBody] Books value)
         {
-            _context.Products.Add(value);
+            _context.Books.Add(value);
             _context.SaveChanges();
             return StatusCode(201, value);
         }
@@ -70,8 +75,8 @@ namespace eCommerceStarterCode.Controllers
         [HttpDelete("{productId}")]
         public IActionResult Remove(int productId)
         {
-            var singleProduct = _context.Products.Where(p => p.Id == productId).SingleOrDefault();
-            _context.Products.Remove(singleProduct);
+            var singleProduct = _context.Books.Where(p => p.Id == productId).SingleOrDefault();
+            _context.Books.Remove(singleProduct);
             _context.SaveChanges();
             return Ok(singleProduct);
         }
