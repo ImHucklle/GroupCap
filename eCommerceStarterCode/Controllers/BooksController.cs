@@ -29,23 +29,23 @@ namespace eCommerceStarterCode.Controllers
         }
 
         // GET api/product/{id}
-        [HttpGet("{Id}")]
-        public IActionResult GetSingleProduct(int id)
-        {
-            var singleProduct = _context.Books.Where(p => p.Id == id);
-            return Ok(singleProduct);
-        }
+        //[HttpGet("{Id}")]
+        //public IActionResult GetSingleProduct(int id)
+        //{
+        //    var singleProduct = _context.Books.Where(p => p.Id == id);
+        //    return Ok(singleProduct);
+        //}
 
         // GET api/product/selling/{userId}
-        [HttpGet("selling/{userId}"), Authorize]
-        public IActionResult GetUserProductsForSale(string id)
-        {
-            var userId = User.FindFirstValue("id");
-#pragma warning disable CS0252 // Possible unintended reference comparison; left hand side needs cast
-            var usersProductsForSale = _context.Books.Include(p => p.UserId).Where(p => p.UserId == userId);
-#pragma warning restore CS0252 // Possible unintended reference comparison; left hand side needs cast
-            return Ok(usersProductsForSale);
-        }
+//        [HttpGet("selling/{userId}"), Authorize]
+//        public IActionResult GetUserProductsForSale(string id)
+//        {
+//            var userId = User.FindFirstValue("id");
+//#pragma warning disable CS0252 // Possible unintended reference comparison; left hand side needs cast
+//            //var usersProductsForSale = _context.Books.Include(p => p.UserId).Where(p => p.UserId == userId);
+//#pragma warning restore CS0252 // Possible unintended reference comparison; left hand side needs cast
+//            //return Ok(usersProductsForSale);
+//        }
 
         //// GET api/searchresults/searchterm
         //[HttpGet("searchresults{searchTerm}")]
@@ -57,7 +57,7 @@ namespace eCommerceStarterCode.Controllers
         //}
 
         // POST api/<ProductController>
-        [HttpPost("create")]
+        [HttpPost("create"), Authorize]
         public IActionResult Add([FromBody] Books bookToAdd)
         {
             Books newBook = new Books()
@@ -82,14 +82,14 @@ namespace eCommerceStarterCode.Controllers
         {
         }
 
-        // DELETE api/<ProductController>/5
-        [HttpDelete("{productId}")]
-        public IActionResult Remove(int productId)
-        {
-            var singleProduct = _context.Books.Where(p => p.Id == productId).SingleOrDefault();
-            _context.Books.Remove(singleProduct);
-            _context.SaveChanges();
-            return Ok(singleProduct);
-        }
+        //// DELETE api/<ProductController>/5
+        //[HttpDelete("{productId}")]
+        //public IActionResult Remove(int productId)
+        //{
+        //    var singleProduct = _context.Books.Where(p => p.Id == productId).SingleOrDefault();
+        //    _context.Books.Remove(singleProduct);
+        //    _context.SaveChanges();
+        //    return Ok(singleProduct);
+        //}
     }
 }
