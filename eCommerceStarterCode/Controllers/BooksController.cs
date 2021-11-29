@@ -9,7 +9,7 @@ using System.Security.Claims;
 
 namespace eCommerceStarterCode.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/books")]
     [ApiController]
     public class ProductController : ControllerBase
     {
@@ -58,11 +58,22 @@ namespace eCommerceStarterCode.Controllers
 
         // POST api/<ProductController>
         [HttpPost("create")]
-        public IActionResult PostNewProduct([FromBody] Books value)
+        public IActionResult Add([FromBody] Books bookToAdd)
         {
-            _context.Books.Add(value);
+            Books newBook = new Books()
+            {
+                Title = bookToAdd.Title,
+                Author = bookToAdd.Author,
+                Genre = bookToAdd.Genre,
+                ReleaseDate = bookToAdd.ReleaseDate,
+                Description = bookToAdd.Description,
+                Price = bookToAdd.Price,
+
+            };
+            //var book = _mapper.Map<Books>(bookToAdd);
+            _context.Books.Add(newBook);
             _context.SaveChanges();
-            return StatusCode(201, value);
+            return StatusCode(201, bookToAdd);
         }
 
         // PUT api/<ProductController>/5
